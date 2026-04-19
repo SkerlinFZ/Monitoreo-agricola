@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroMonitor — Sistema de Equipos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+          <path d="M14 8L20 11V17L14 20L8 17V11L14 8Z" fill="#4ade80" opacity="0.3"/>
+          <circle cx="14" cy="14" r="2.5" fill="#4ade80"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">AgroMonitor</div>
+        <div class="logo-sub">v2.0 — Sistema</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="dashboard">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item" data-section="crear">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Crear Equipo
+      </a>
+      <a href="#" class="nav-item" data-section="registrar">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Registrar Horas
+      </a>
+      <a href="#" class="nav-item" data-section="historial">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l2.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Historial
+      </a>
+      <a href="#" class="nav-item" data-section="equipos">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8.5" r="1.5" fill="currentColor"/></svg>
+        Equipos
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <span>Sistema en línea</span>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-title">
+        <span class="section-label">Dashboard</span>
+        <h1 id="pageTitle">Resumen General</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="time-badge" id="timeBadge"></div>
+      </div>
+    </header>
+
+    <!-- SECTION: DASHBOARD -->
+    <section class="section active" id="sec-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card stat-total">
+          <div class="stat-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 5V4a2 2 0 012-2h4a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10.5" r="1.5" fill="currentColor"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Total Equipos</div>
+            <div class="stat-value" id="totalEquipos">—</div>
+          </div>
+          <div class="stat-bg-text">TOTAL</div>
+        </div>
+
+        <div class="stat-card stat-cuarentena">
+          <div class="stat-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L18 6.5V13.5L10 18L2 13.5V6.5L10 2Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 7v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14" r="1" fill="currentColor"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">En Cuarentena</div>
+            <div class="stat-value" id="equiposCuarentena">—</div>
+          </div>
+          <div class="stat-bg-text">WARN</div>
+        </div>
+
+        <div class="stat-card stat-urgente">
+          <div class="stat-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 5.5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14" r="1" fill="currentColor"/></svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-label">Mantenimiento Urgente</div>
+            <div class="stat-value" id="mantenimientoUrgente">—</div>
+          </div>
+          <div class="stat-bg-text">CRIT</div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="qa-title">Acciones rápidas</div>
+        <div class="qa-grid">
+          <button class="qa-btn" onclick="goTo('crear')">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.3"/><path d="M9 5.5v7M5.5 9h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Nuevo equipo
+          </button>
+          <button class="qa-btn" onclick="goTo('registrar')">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="1.5" width="14" height="15" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 6h7M5.5 9h7M5.5 12h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Registrar horas
+          </button>
+          <button class="qa-btn" onclick="goTo('equipos')">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 14l4-8 4 5 3-3 3 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ver equipos
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: CREAR -->
+    <section class="section" id="sec-crear">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-icon green">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v8M6 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="form-card-title">Nuevo Equipo</div>
+            <div class="form-card-sub">Registre un equipo agrícola en el sistema</div>
+          </div>
+        </div>
+
+        <div class="form-fields">
+          <div class="field-group">
+            <label class="field-label">Nombre del equipo</label>
+            <input class="field-input" id="nombreEquipo" type="text" placeholder="Ej: Tractor John Deere 5090">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Límite de horas para mantenimiento</label>
+            <input class="field-input" id="limiteEquipo" type="number" placeholder="Ej: 250" min="10">
+            <span class="field-hint">Mínimo 10 horas</span>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="crearEquipoUI()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Crear equipo
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION: REGISTRAR -->
+    <section class="section" id="sec-registrar">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-icon blue">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 7h6M7 10h6M7 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="form-card-title">Registrar Horas de Uso</div>
+            <div class="form-card-sub">Asigne horas trabajadas a un equipo</div>
+          </div>
+        </div>
+
+        <div class="form-fields">
+          <div class="field-group">
+            <label class="field-label">Equipo</label>
+            <select class="field-select" id="equipoSelect"></select>
+          </div>
+          <div class="form-row">
+            <div class="field-group">
+              <label class="field-label">Fecha</label>
+              <input class="field-input" id="fecha" type="date">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Horas trabajadas</label>
+              <input class="field-input" id="horas" type="number" placeholder="0" min="0.5" step="0.5">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="registrarHorasUI()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5v9M4.5 7.5L8 11l3.5-3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Registrar horas
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION: HISTORIAL -->
+    <section class="section" id="sec-historial">
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="form-card-icon amber">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 5v5l3 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="form-card-title">Historial de Uso</div>
+            <div class="form-card-sub">Consulte los registros por equipo</div>
+          </div>
+        </div>
+
+        <div class="form-fields">
+          <div class="field-group">
+            <label class="field-label">Seleccionar equipo</label>
+            <select class="field-select" id="equipoHistorial"></select>
+          </div>
+        </div>
+
+        <button class="btn-secondary" onclick="verHistorialUI()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.5V8l2.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Ver historial
+        </button>
+      </div>
+
+      <div id="historial" class="historial-list"></div>
+    </section>
+
+    <!-- SECTION: EQUIPOS -->
+    <section class="section" id="sec-equipos">
+      <div id="listaEquipos" class="equipos-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    // Navigation
+    function goTo(section) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelector(`[data-section="${section}"]`).classList.add('active');
+      document.getElementById(`sec-${section}`).classList.add('active');
+
+      const titles = {
+        dashboard: 'Resumen General',
+        crear: 'Crear Equipo',
+        registrar: 'Registrar Horas',
+        historial: 'Historial de Uso',
+        equipos: 'Lista de Equipos'
+      };
+      document.getElementById('pageTitle').textContent = titles[section];
+    }
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        goTo(item.dataset.section);
+      });
+    });
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('timeBadge').textContent =
+        now.toLocaleDateString('es-CR', { weekday: 'short', month: 'short', day: 'numeric' }) +
+        ' · ' + now.toLocaleTimeString('es-CR', { hour: '2-digit', minute: '2-digit' });
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    // Toast helper
+    window.showToast = (msg, type = 'success') => {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast show ${type}`;
+      setTimeout(() => t.classList.remove('show'), 3000);
+    };
+  </script>
+</body>
+</html>
